@@ -1,12 +1,16 @@
-import './App.css';
+import { ThemeProvider, ColorModeProvider } from "@chakra-ui/react"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-       eat-well
-      </header>
-    </div>
+    <ThemeProvider>
+      
+        <div className="App">
+          <header className="App-header">
+            eat-well
+          </header>
+        </div>
+      
+    </ThemeProvider>
   );
 }
 
