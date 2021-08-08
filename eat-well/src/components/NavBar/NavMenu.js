@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import {Link} from '@chakra-ui/react'
+import { Link  as ReactLink} from "react-router-dom"
 import { Menu, MenuItem, MenuList, MenuButton } from "@chakra-ui/menu";
 import { Flex } from "@chakra-ui/layout";
 
@@ -18,7 +19,7 @@ const NavMenu = () => {
                 <MenuItem> Whole30 </MenuItem>
             </MenuList>
         </Menu>
-        <Link className="nav-link"> Cuisine </Link>
+        <Link  as={ReactLink} className="nav-link"> Cuisine </Link>
         <Menu>
             <MenuButton className="nav-link"> Meal Plan </MenuButton>
             <MenuList>
@@ -26,8 +27,8 @@ const NavMenu = () => {
                 <MenuItem>Plan for a week</MenuItem>
             </MenuList>
         </Menu>
-        <Link className="nav-link">Wines</Link>
-        <Link className="nav-link">Random Recipe</Link>
+        <Link as={ReactLink} className="nav-link">Wines</Link>
+        <Link as={ReactLink} className="nav-link">Random Recipe</Link>
         <Menu>
             <MenuButton className="nav-link"> Shopping List </MenuButton>
             <MenuList>

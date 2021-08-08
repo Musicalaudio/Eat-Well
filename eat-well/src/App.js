@@ -3,7 +3,7 @@ import NavMenu from "./components/NavBar/NavMenu";
 import Footer from "./components/Footer";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import NavHeader from "./components/NavBar/NavHeader";
-
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -16,6 +16,9 @@ function App() {
           </div>
           <section className='container'>
             <Switch>
+              <Route exact path="/">
+                <Home/>
+              </Route>
 
             </Switch>
           </section> 
