@@ -12,14 +12,7 @@ code {
     monospace;
 }
 
-.nav-header{
-  display: flex;
-  justify-content: space-between;
-}
 
-.nav-list{
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-}
+
+
 
