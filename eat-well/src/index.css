@@ -12,6 +12,31 @@ code {
     monospace;
 }
 
+.app-bar{
+  margin-bottom: 10px;
+}
+
+.tabs{
+  justify-content: space-evenly;
+}
+
+main {
+  padding: 10px 50px;
+}
+
+.filter-page {
+  display: flex;
+  width: 100%;
+}
+
+.form-page {
+  width: 40%;
+}
+.grid-page {
+  width: 60%;
+}
+
+
 
 
 
