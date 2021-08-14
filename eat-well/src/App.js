@@ -1,31 +1,32 @@
-import {ChakraProvider} from "@chakra-ui/react";
-import NavMenu from "./components/NavBar/NavMenu";
-import Footer from "./components/Footer";
+import NavMenu from "./components/NavMenu";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import NavHeader from "./components/NavBar/NavHeader";
-import Home from './pages/Home'
+import Home from './components/Home'
+import RecipeGridPage from "./components/RecipeSearch/RecipeGridPage";
+import {ThemeProvider} from "@material-ui/core"
+import theme from './theme'
 
 function App() {
   return (
-    <ChakraProvider>
+    <ThemeProvider theme={theme}>
       <Router>
         <div className="App">
-          <div className='nav-wrapper'>
-            <NavHeader/>
+          <header>
             <NavMenu/>
-          </div>
-          <section className='container'>
+          </header>
+          <main className='container'>
             <Switch>
               <Route exact path="/">
                 <Home/>
               </Route>
-
+              <Route exact path="/filter">
+                <RecipeGridPage/>
+              </Route>
             </Switch>
-          </section> 
-          <Footer/>
+          </main> 
         </div>
       </Router>
-    </ChakraProvider>
+    </ThemeProvider>
+
   );
 }
 
