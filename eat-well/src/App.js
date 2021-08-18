@@ -16,7 +16,7 @@ function App() {
           <main className='container'>
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/filter" component={RecipeFilterPage}/>
+              <Route exact path="/filter/:page" component={RecipeFilterPage}/>
             </Switch>
           </main> 
         </div>
