@@ -3,17 +3,16 @@ import axios from "axios";
 import RecipeCard from './RecipeCard';
 import { Grid, Typography } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
-import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import {useForm} from 'react-hook-form'
+
 
 const getData = () => {
 
 }
 
-const INITIAL_FORM_STATE = {
 
-}
 
 const FORM_VALIDATION = Yup.object().shape({
 
@@ -66,21 +65,7 @@ const RecipeFilterPage = () => {
       <div className="filter-page">
         <div className="form-page">
           <h2>Filter</h2>
-            <Formik initialValues ={{...INITIAL_FORM_STATE}} validationSchema = {FORM_VALIDATION} onSubmit= {values => {console.log(values)}}>
-              <Form>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Typography> Your Details</Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography> Address </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography> Booking information </Typography>
-                  </Grid>
-                </Grid>
-              </Form>
-            </Formik>
+            
         </div>
         <div className="grid-page">
           <h2>Recipes</h2>
@@ -98,7 +83,7 @@ const RecipeFilterPage = () => {
         </div>
       </div>
       <div className="pagination-button">
-      <div>{page}</div>
+      {/* <div>{page}</div> */}
 
       <Pagination defaultPage={1} page={page} count={Math.ceil(totalItems/number)} onChange={handlePage}
        color="primary" showFirstButton showLastButton />
