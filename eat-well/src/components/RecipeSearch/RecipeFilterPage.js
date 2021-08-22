@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import RecipeCard from './RecipeCard';
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import FilterForm from "./FilterForm";
 import { useHistory } from "react-router-dom";
@@ -29,8 +29,8 @@ const RecipeFilterPage = () => {
     history.push(`/filter/${value}`)
   };
 
-  console.log('log page:', page)
-  console.log('log offset:', offset)
+  // console.log('log page:', page)
+  // console.log('log offset:', offset)
 
   useEffect(() => {
     
@@ -50,13 +50,13 @@ const RecipeFilterPage = () => {
     });
   }, [url])
 
-  console.log(totalItems)
+  //console.log(totalItems)
 
   return (
     <div className="outer-div">
       <div className="filter-page">
         <div className="form-page">
-         <FilterForm/>
+         <FilterForm data={recipeData} url={url}/>
         </div>
         <div className="grid-page">
           <h2>Recipes</h2>
