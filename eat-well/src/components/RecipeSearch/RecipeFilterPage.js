@@ -3,20 +3,10 @@ import axios from "axios";
 import RecipeCard from './RecipeCard';
 import { Grid, Typography } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
-import * as Yup from 'yup';
+import FilterForm from "./FilterForm";
 import { useHistory } from "react-router-dom";
-import {useForm} from 'react-hook-form'
 
 
-const getData = () => {
-
-}
-
-
-
-const FORM_VALIDATION = Yup.object().shape({
-
-});
 
 const RecipeFilterPage = () => {
   const [page, setPage] = useState(1);
@@ -28,6 +18,8 @@ const RecipeFilterPage = () => {
   const [totalItems, setTotalItems] = useState(null);
   const history = useHistory();
   //console.log(useParams())
+
+ 
 
   const handlePage = (event, value) => {
     setRecipeData(null)
@@ -64,8 +56,7 @@ const RecipeFilterPage = () => {
     <div className="outer-div">
       <div className="filter-page">
         <div className="form-page">
-          <h2>Filter</h2>
-            
+         <FilterForm/>
         </div>
         <div className="grid-page">
           <h2>Recipes</h2>
