@@ -19,6 +19,14 @@ const RecipeFilterPage = () => {
   const history = useHistory();
   //console.log(useParams())
 
+  const [formState, setFormState] = useState({
+    dietState: "",
+    cuisineState: "",
+    intoleranceState: "",
+    typeState: "", 
+    minVal: "",
+    maxVal: "",
+  })
  
 
   const handlePage = (event, value) => {
@@ -56,7 +64,7 @@ const RecipeFilterPage = () => {
     <div className="outer-div">
       <div className="filter-page">
         <div className="form-page">
-         <FilterForm data={recipeData} url={url}/>
+         <FilterForm data={recipeData} url={url} formState={formState} setFormState={setFormState}/>
         </div>
         <div className="grid-page">
           <h2>Recipes</h2>
