@@ -4,10 +4,11 @@
 import {Button, Grid, Select, FormControl, InputLabel, TextField} from '@material-ui/core'
 import { useState } from 'react';
 
-const FilterForm = (props) => {
-    const {url, formState, setFormState} = props
-    // console.log(url);
+const FilterForm = ({offset, page, number, fetchedUrl, setFetchedUrl, formState, setFormState}) => {
     
+    console.log('page: ', page, 'number: ', number, 'offset: ', offset)
+
+
     const [formData, setFormData] = useState({
         diets: ['Gluten Free', 'Ketogenic', 'Vegetarian', 'Lacto-Vegetarian', 'Ovo-Vegetarian',
                 'Vegan', 'Pescetarian', 'Paleo', 'Primal', 'Whole30'],   
@@ -30,8 +31,18 @@ const FilterForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('submitted');
+        let url = ***REMOVED***
+        // console.log('submitted');
+        for (var state in formState){
+            //console.log(state)
+            if(formState[state].length > 0){  
+                // console.log(state.length)
+                url += `&${state.replace(/\s/g, "")}=${formState[state].replace(/\s/g, "")}`
+            } 
+        }
+        setFetchedUrl(url);
     }
+
 
     return ( 
         <>
@@ -40,8 +51,8 @@ const FilterForm = (props) => {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <InputLabel color="primary">Diet</InputLabel>    
-                        <Select native displayEmpty={true} value={formState['dietState']} 
-                        onChange={(e) =>handleChange('dietState', e.target.value)} >
+                        <Select native displayEmpty={true} value={formState['diet']} 
+                        onChange={(e) =>handleChange('diet', e.target.value)} >
                             <option aria-label="None" value="" />
                             {formData.diets.map(diet =>
                                 <option key={diet} value={diet}>{diet}</option>
@@ -50,8 +61,8 @@ const FilterForm = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         <InputLabel color="primary">Cuisine</InputLabel>    
-                        <Select native displayEmpty={true} value={formState['cuisineState']} 
-                        onChange={(e) =>handleChange('cuisineState', e.target.value)} >
+                        <Select native displayEmpty={true} value={formState['cuisine']} 
+                        onChange={(e) =>handleChange('cuisine', e.target.value)} >
                             <option aria-label="None" value="" />
                             {formData.cuisines.map(cuisine =>
                                 <option key={cuisine} value={cuisine}>{cuisine}</option>
@@ -60,8 +71,8 @@ const FilterForm = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         <InputLabel color="primary">Intolerance</InputLabel>    
-                        <Select native displayEmpty={true} value={formState['intoleranceState']} 
-                        onChange={(e) =>handleChange('intoleranceState', e.target.value)} >
+                        <Select native displayEmpty={true} value={formState['intolerances']} 
+                        onChange={(e) =>handleChange('intolerances', e.target.value)} >
                             <option aria-label="None" value="" />
                             {formData.intolerances.map(intolerance =>
                                 <option key={intolerance} value={intolerance}>{intolerance}</option>
@@ -70,8 +81,8 @@ const FilterForm = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         <InputLabel color="primary">Recipe Type</InputLabel>    
-                        <Select native displayEmpty={true} value={formState['typeState']} 
-                        onChange={(e) =>handleChange('typeState', e.target.value)} >
+                        <Select native displayEmpty={true} value={formState['type']} 
+                        onChange={(e) =>handleChange('type', e.target.value)} >
                             <option aria-label="None" value="" />
                             {formData.types.map(type =>
                                 <option key={type} value={type}>{type}</option>
@@ -80,11 +91,11 @@ const FilterForm = (props) => {
                     </Grid>
                     <Grid item xs={3}>
                         <InputLabel color="primary">Min Calories</InputLabel>
-                        <TextField type="number" value={formState['minVal']} onChange={e => handleChange('minVal', e.target.value)}/>
+                        <TextField type="number" value={formState['minCalories']} onChange={e => handleChange('minCalories', e.target.value)}/>
                     </Grid>
                     <Grid item xs={3}>
                         <InputLabel color="primary">Max Calories</InputLabel>
-                        <TextField type="number" value={formState['maxVal']} onChange={e => handleChange('maxVal', e.target.value)}/>
+                        <TextField type="number" value={formState['maxCalories']} onChange={e => handleChange('maxCalories', e.target.value)}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" color="primary" type="submit">

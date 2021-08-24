@@ -13,19 +13,22 @@ const RecipeFilterPage = () => {
   const [number, setNumber] = useState(12); //number of results per page
   const [offset, setOffset] = useState((page - 1) * number);  
   var url = ***REMOVED***
+  const [fetchedUrl, setFetchedUrl] = useState(`https://api.spoonacular.com/recipes/complexSearch?apiKey=***REMOVED***&number=${12}&offset=${offset}`);
   const [recipeData, setRecipeData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [totalItems, setTotalItems] = useState(null);
   const history = useHistory();
   //console.log(useParams())
+  //console.log('page: ', page, 'number: ', number, 'offset: ', offset)
+  //console.log(offset)
 
   const [formState, setFormState] = useState({
-    dietState: "",
-    cuisineState: "",
-    intoleranceState: "",
-    typeState: "", 
-    minVal: "",
-    maxVal: "",
+    diet: "",
+    cuisine: "",
+    intolerances: "",
+    type: "", 
+    minCalories: "",
+    maxCalories: "",
   })
  
 
@@ -42,7 +45,7 @@ const RecipeFilterPage = () => {
 
   useEffect(() => {
     
-    axios.get(url)
+    axios.get(fetchedUrl)
     .then(function (response) {
       return response.data;
     })
@@ -56,7 +59,7 @@ const RecipeFilterPage = () => {
       // handle error
       console.log(error);
     });
-  }, [url])
+  }, [fetchedUrl])
 
   //console.log(totalItems)
 
@@ -64,7 +67,7 @@ const RecipeFilterPage = () => {
     <div className="outer-div">
       <div className="filter-page">
         <div className="form-page">
-         <FilterForm data={recipeData} url={url} formState={formState} setFormState={setFormState}/>
+         <FilterForm offset={offset} number={number} page={page} fetchedUrl={fetchedUrl} setFetchedUrl={setFetchedUrl} url={url} formState={formState} setFormState={setFormState} />
         </div>
         <div className="grid-page">
           <h2>Recipes</h2>
