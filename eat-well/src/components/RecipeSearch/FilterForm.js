@@ -5,9 +5,6 @@ import {Button, Grid, Select, FormControl, InputLabel, TextField} from '@materia
 import { useState } from 'react';
 
 const FilterForm = ({offset, page, number, fetchedUrl, setFetchedUrl, formState, setFormState}) => {
-    
-    console.log('page: ', page, 'number: ', number, 'offset: ', offset)
-
 
     const [formData, setFormData] = useState({
         diets: ['Gluten Free', 'Ketogenic', 'Vegetarian', 'Lacto-Vegetarian', 'Ovo-Vegetarian',
@@ -31,7 +28,7 @@ const FilterForm = ({offset, page, number, fetchedUrl, setFetchedUrl, formState,
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        let url = ***REMOVED***
+        var url = ***REMOVED***
         // console.log('submitted');
         for (var state in formState){
             //console.log(state)
@@ -41,6 +38,7 @@ const FilterForm = ({offset, page, number, fetchedUrl, setFetchedUrl, formState,
             } 
         }
         setFetchedUrl(url);
+        //console.log(fetchedUrl)
     }
 
 

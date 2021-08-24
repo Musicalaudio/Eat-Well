@@ -12,15 +12,15 @@ const RecipeFilterPage = () => {
   const [page, setPage] = useState(1);
   const [number, setNumber] = useState(12); //number of results per page
   const [offset, setOffset] = useState((page - 1) * number);  
-  var url = ***REMOVED***
-  const [fetchedUrl, setFetchedUrl] = useState(`https://api.spoonacular.com/recipes/complexSearch?apiKey=***REMOVED***&number=${12}&offset=${offset}`);
+  let url = ***REMOVED***
+  //&number=${12}&offset=${offset}
+  const [fetchedUrl, setFetchedUrl] = useState(`https://api.spoonacular.com/recipes/complexSearch?apiKey=***REMOVED***`);
   const [recipeData, setRecipeData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [totalItems, setTotalItems] = useState(null);
   const history = useHistory();
   //console.log(useParams())
-  //console.log('page: ', page, 'number: ', number, 'offset: ', offset)
-  //console.log(offset)
+  console.log('page: ', page, 'number: ', number, 'offset: ', offset)
 
   const [formState, setFormState] = useState({
     diet: "",
@@ -37,6 +37,7 @@ const RecipeFilterPage = () => {
     setIsPending(true);
     setPage(value);
     setOffset((value - 1) * number)
+    //console.log(fetchedUrl)
     history.push(`/filter/${value}`)
   };
 
@@ -45,7 +46,7 @@ const RecipeFilterPage = () => {
 
   useEffect(() => {
     
-    axios.get(fetchedUrl)
+    axios.get(fetchedUrl + `&number=${number}&offset=${offset}`)
     .then(function (response) {
       return response.data;
     })
@@ -59,7 +60,7 @@ const RecipeFilterPage = () => {
       // handle error
       console.log(error);
     });
-  }, [fetchedUrl])
+  }, [fetchedUrl, offset, number])
 
   //console.log(totalItems)
 
@@ -67,7 +68,7 @@ const RecipeFilterPage = () => {
     <div className="outer-div">
       <div className="filter-page">
         <div className="form-page">
-         <FilterForm offset={offset} number={number} page={page} fetchedUrl={fetchedUrl} setFetchedUrl={setFetchedUrl} url={url} formState={formState} setFormState={setFormState} />
+         <FilterForm offset={offset} number={number} page={page} fetchedUrl={fetchedUrl} setFetchedUrl={setFetchedUrl} formState={formState} setFormState={setFormState} />
         </div>
         <div className="grid-page">
           <h2>Recipes</h2>
