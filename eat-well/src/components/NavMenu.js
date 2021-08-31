@@ -19,7 +19,7 @@ const NavMenu = () => {
               <input type="text" placeholder="Search Recipe..."/>
             </div>
             <div className='admin-buttons'>
-              <p> <Link to='/' className='ad-but'style={{ color: '#FFF' }}>Sign In</Link> | <Link to='/' className='ad-but' style={{ color: '#FFF' }}>Sign Up</Link> </p>
+              <p> <Link to='/sign-in' className='ad-but'style={{ color: '#FFF' }}>Sign In</Link> | <Link to='/sign-up' className='ad-but' style={{ color: '#FFF' }}>Sign Up</Link> </p>
             </div>
           </Toolbar>
         </AppBar>
