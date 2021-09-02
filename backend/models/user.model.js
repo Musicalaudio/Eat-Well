@@ -21,9 +21,13 @@ const UserSchema = new mongoose.Schema({
 
 //encrypting the password with hashing and salt
 UserSchema.pre('save', async function(next){
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
+    try{
+        const salt = await bcrypt.genSalt();
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    }catch(err){
+        next(err)
+    }
 })
 
 

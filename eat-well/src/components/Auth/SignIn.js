@@ -8,19 +8,18 @@ const SignIn = () => {
         password: ""
     })
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        axios.post('/sign-in', {
-            email: accountData.email,
-            password: accountData.password
-        })
-        .then(function (response){
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-          });
+        let axiosData = {email: accountData.email, password: accountData.password}
+        let axiosConfig = { 
+            credentials: 'include',
+            withCredentials: true,
+            headers: {'Access-Control-Allow-Origin': '*', 'Content-Type' : 'application/json'},
+        }
+
+       
     }
+
 
     const handleChange = (state, value) => {
         let newAccountData = {...accountData}
