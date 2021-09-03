@@ -5,9 +5,9 @@ require('dotenv').config();
 
 //handle errors
 const handleErrors = (err) => {
-    //console.log(err.message, err.code)
+    console.log(err.message, err.code)
     let errors = {email: "", password: ""};
-    
+
     if(err.code === 11000){
         errors.email = 'that email is already registered'
         return errors;
@@ -18,8 +18,9 @@ const handleErrors = (err) => {
         //console.log('array: ', Object.values(err.errors)) //each error object has a property object
         Object.values(err.errors).forEach(({properties}) => {  //for each property for each error object...      
             errors[properties.path] = properties.message 
-        })
+        });
     }
+
     return errors;
 }
 
@@ -28,14 +29,12 @@ const createToken = (id) => {
     return jwt.sign({ id }, process.env.SECRET, {expiresIn: maxAge})  //signed with payload, secret and headers
 }
 
-router.post('/sign-up', async (req, res, next) => {
-    console.log(req.body)
+router.post('/sign-up', async ( req, res ) => {
     const { email, password } = req.body
     
     try{
         const user = await User.create({email, password})
         const token = createToken(user._id)
-        console.log(token)
         res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge * 1000 }); //time is 3 days in milliseconds
         res.status(201).json({ user: user._id})
     }
