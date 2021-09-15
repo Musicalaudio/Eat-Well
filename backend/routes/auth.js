@@ -8,6 +8,17 @@ const handleErrors = (err) => {
     console.log(err.message, err.code)
     let errors = {email: "", password: ""};
 
+    // incorrect email
+    if (err.message === 'Incorrect Email') {
+        errors.email = 'That email is not registered'; //later change this to incorrect email or password?
+    }
+
+    // incorrect password
+    if (err.message === 'Incorrect Password') {
+        errors.password = 'That password is incorrect'; //later change this to incorrect email or password?
+    }
+
+    //duplicate email
     if(err.code === 11000){
         errors.email = 'that email is already registered'
         return errors;
@@ -40,20 +51,30 @@ router.post('/sign-up', async ( req, res ) => {
     }
     catch(err){
         const errors = handleErrors(err)
-        res.status(400).json({ errors });
+        res.status(400).json({ errors })
     }
 });
 
-router.post('/sign-in', async (req, res, next) => {
-    res.send('sign-in route')
+router.post('/sign-in', async (req, res) => {
+    //res.send('sign-in route')
+    const {email, password} = req.body;
+
+    try{
+        const user = await User.login(email, password)
+        const token = createToken(user._id)
+        res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge * 1000 }); //time is 3 days in milliseconds
+        res.status(200).json({user: user._id})
+    }
+    catch(err){
+        const errors = handleErrors(err);
+        res.status(400).json({errors})
+    }
 });
 
-router.post('/refresh-token', (req, res, next) => {
-    res.send('refresh-token route')
-});
-
-router.delete('/log-out', (req, res, next) => {
-    res.send('logout route')
+router.get('/log-out', (req, res ) => {
+    res.clearCookie('jwt');
+    res.status(200).json({});
+    //res.status(200).redirect('/');
 });
 
 module.exports = router;
