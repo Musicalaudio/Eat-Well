@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
 const authRoute = require('./routes/auth')
+const verifyAuth = require('./routes/verify')
 const morgan = require('morgan')
 require('dotenv').config();
 
@@ -39,6 +40,8 @@ mongoose.connection.once('open', () => {
 })
 
 app.use('/auth', authRoute)
+app.use('/verify', verifyAuth)
+
 
 app.listen(port, ()=>{
     console.log(`Server is listening on port ${port}`);
