@@ -12,13 +12,13 @@ import { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import {UserContext} from "./contexts/UserContext"
 import RecipeInstructions from "./components/RecipeSearch/RecipeInstructions";
+import SearchResults from "./components/RecipeSearch/SearchResults";
  
 
 
 function App() {
   const {userState, setUserState} = useContext(UserContext);
   const [flag, setFlag] = useState(false);
-
 
   useEffect(() => {
     axios.all([
@@ -44,11 +44,7 @@ function App() {
     })
   }, [setUserState, userState.verifiedToken, flag])
 
-  //console.log(userState.verifiedToken)
-  //console.log(userState)
-
   return (
-    // <UserContextProvider>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <div className="App">
@@ -60,6 +56,7 @@ function App() {
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/recipe-instructions/:title/:id" component={RecipeInstructions}/>
                 <Route exact path="/filter/:page" component={RecipeFilterPage}/>
+                <Route exact path="/search/:searchValue" component={SearchResults}/>
                 <AlreadyAuthorized exact path="/sign-in" verifiedToken={userState.verifiedToken} flag={flag} setFlag={setFlag} component={SignIn}/>
                 <AlreadyAuthorized exact path="/sign-up" verifiedToken={userState.verifiedToken} component={SignUp}/>
                 <Route exact path="/unauthorized" component={Unauthorized}/>
@@ -68,7 +65,6 @@ function App() {
           </div>
         </BrowserRouter>
       </ThemeProvider>
-    //</UserContextProvider>
   );
 }
 
