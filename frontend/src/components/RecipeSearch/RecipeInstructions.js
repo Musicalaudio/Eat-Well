@@ -3,15 +3,13 @@ import {useEffect, useState} from "react";
 import { useParams } from "react-router";
 import parse from 'html-react-parser';
 
-const RecipeInstructions = ({recipeTitle, image}) => {
+const RecipeInstructions = () => {
     //console.log('recipe title: ', recipeTitle)
     const [recipeSummary, setRecipeSummary] = useState(undefined)
     const [recipeData, setRecipeData] = useState(undefined)
     const [ingredientsData, setIngredientsData] = useState(undefined)
     const {title, id} = useParams()
-    //console.log("title: ", title)
-    //console.log("id: ", id)
-
+    
 
     useEffect(()=>{
         axios.all([
@@ -21,6 +19,7 @@ const RecipeInstructions = ({recipeTitle, image}) => {
             .then(function (response) {
                 setRecipeSummary(response[0].data)
                 setRecipeData(response[1].data[0])
+                console.log(response[1].data)
             })
             .catch(function (error) {
                 // handle error
@@ -49,11 +48,11 @@ const RecipeInstructions = ({recipeTitle, image}) => {
             <p>{parse(recipeSummary.summary)}</p>
             <h3>Ingredients</h3>
             {ingredientsData? <div>{ingredientsData.map(ingredient => <p key={ingredient}> {ingredient} </p>)}</div>: <p>Fetching Ingredients...</p>}
-            {/* <p>{ingredientsData.map(ingredient => ingredient)}</p> */}
+            
             <h3>Instructions:</h3>
             {recipeData['steps'].map(instruction => 
                 <div className="recipe-instructions" key={instruction.step}>
-                    {/* <strong>Step {instruction.number}:</strong> */}
+                    
                     <p><strong>{instruction.number}.</strong> {instruction.step}</p>
                 </div>
             )}
