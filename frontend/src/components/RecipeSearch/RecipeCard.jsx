@@ -21,12 +21,11 @@ const useStyles = makeStyles({
 const RecipeCard = (props) => {
   const {id, title, image} = props;
   const classes = useStyles();
-  //const [titleParam, setTitleParam] = useState(title)
-  //let recipeTitle = title;
+  
   let urlTitle = title.replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '')
                       .replace(/\s+/g, '-').toLowerCase();
   
-  console.log(urlTitle)
+  //console.log(urlTitle)
 
   return (
     <Card className={classes.root}>
@@ -37,7 +36,7 @@ const RecipeCard = (props) => {
           title={title}
         />
         <CardContent>
-          <Link to={`/recipe-instructions/${urlTitle}/${id}`} image={image}>
+          <Link to={`/recipe-instructions/${urlTitle}/${id}`}>
             <Typography gutterBottom variant="h6" component="h2">
               {title}
             </Typography>
