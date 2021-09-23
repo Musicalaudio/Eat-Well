@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom'
-// import eatwell from '../../images/eatwell.png'
+import Bookmark from "./Bookmark"
 
 const useStyles = makeStyles({
   root: {
@@ -18,14 +18,13 @@ const useStyles = makeStyles({
   },
 });
 
-const RecipeCard = (props) => {
-  const {id, title, image} = props;
+const RecipeCard = ({id, title, image, imageType}) => {
+  // const {id, title, image, imageType} = props;
   const classes = useStyles();
   
   let urlTitle = title.replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '')
                       .replace(/\s+/g, '-').toLowerCase();
-  
-  //console.log(urlTitle)
+
 
   return (
     <Card className={classes.root}>
@@ -47,14 +46,9 @@ const RecipeCard = (props) => {
           </Typography> */}
         </CardContent>
       </CardActionArea>
-      {/* <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions> */}
+      <CardActions>
+        <Bookmark id={id} title={title} image={image} imageType={imageType}/>
+      </CardActions>
     </Card>
   );
 }
