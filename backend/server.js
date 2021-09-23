@@ -1,47 +1,24 @@
-const express = require('express');
-const cors = require('cors');
+//const session = require('express-session')
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser')
-const authRoute = require('./routes/auth')
-const verifyAuth = require('./routes/verify')
-const morgan = require('morgan')
+//const Redis = require('ioredis')
+//const connectRedis = require('connect-redis')
+//const {redisOptions} = require('./config/cache')
+const {MONGO_URI, MONGO_OPTIONS} = require('./config/db')
+const {createApp} = require("./app")
 require('dotenv').config();
 
-const corsOptions = {
-    origin: true, //included origin as true
-    credentials: true, //included credentials as true
-};
-
-const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors(corsOptions));
+//const RedisStore = connectRedis(session)
+//const client = new Redis(redisOptions)
+//const store = new RedisStore({client})
+const app = createApp()
 
-  app.use(function(req, res, next) {
-    res.header('Content-Type', 'application/json;charset=UTF-8')
-    res.header('Access-Control-Allow-Credentials', true)
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    )
-    next()
-  })
-  
-app.use(express.json());
-app.use(cookieParser());
-app.use(morgan('dev'));
-
-
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
+mongoose.connect(MONGO_URI, MONGO_OPTIONS); //should we use await for mongoose.connect and should we wrap server with an IIFE?
 
 mongoose.connection.once('open', () => {
      console.log("Mongodb database connection established successfully")
 })
-
-app.use('/auth', authRoute)
-app.use('/verify', verifyAuth)
-
 
 app.listen(port, ()=>{
     console.log(`Server is listening on port ${port}`);
