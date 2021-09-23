@@ -4,45 +4,19 @@ import {useState, useContext} from "react";
 import { UserContext } from "../contexts/UserContext";
 import axios from 'axios';
 import {useHistory} from 'react-router-dom' 
+import ProfileMenu from "./HeaderComponents/ProfileMenu"
 
 const NavMenu = ({flag, setFlag}) => {
-  const {userState, setUserState} = useContext(UserContext)
+  const {userState} = useContext(UserContext)
   const {verifiedToken, user} = userState;
   const [selectedTab, setselectedTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   let history = useHistory();
 
-  const logout = () => {    
-    axios.get('auth/log-out', {}, { credentials: 'include'})
-      .then(function (response) {
-        // handle success
-        console.log("logged out")
-        userState.verifiedToken = false;
-        userState.user = null;
-        setFlag(!flag)
-      })
-      .then(history.push('/'))
-      .catch(function (error) {
-        // handle error
-        console.log("logout error:", error);
-      })  
-  }
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     history.push(`/search/${searchValue}`)
-    console.log('hi')
-    // axios.get(`https://api.spoonacular.com/recipes/autocomplete?apiKey=***REMOVED***&number=10&query=${searchValue}`)
-    // .then(function(response){
-    //   console.log(response.data)
-    //   console.log(searchValue)
-    //   history.push(`/search/${searchValue}`)
-    // })
-    // .catch(function (error){
-    //   //handle error
-    //   console.log("search error:", error)
-    // })
-
   }
 
   const handleSearchChange = (event) => {
@@ -68,9 +42,9 @@ const NavMenu = ({flag, setFlag}) => {
             </div>
             <div className='admin-buttons'>
               {verifiedToken ?
-              <Link to='/' className='ad-but'style={{ color: '#FFF' }} onClick={logout}>Logout</Link> :
+              <ProfileMenu flag={flag} setFlag={setFlag}/>
+              :
               <p> <Link to='/sign-in' className='ad-but'style={{ color: '#FFF' }}>Sign In</Link> | <Link to='/sign-up' className='ad-but' style={{ color: '#FFF' }}>Sign Up</Link> </p>
-              
               }
               </div>
           </Toolbar>
