@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const {isEmail} =  require('validator')
 
-
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -16,7 +15,12 @@ const userSchema = new mongoose.Schema({
         required: [true, "Please enter password"],
         minlength: [6, "Password must be atleast 6 characters"],
         maxlength: [15, "Password must be no longer than 15 characters"]
-    }
+    },
+    savedRecipes: [{id: {type: String, required: true},
+                    title: {type: String, required: true},
+                    image: {type: String, required: true},
+                    imageType: {type: String, required: true},}
+                  ]
 })
 
 //encrypting the password with hashing and salt
