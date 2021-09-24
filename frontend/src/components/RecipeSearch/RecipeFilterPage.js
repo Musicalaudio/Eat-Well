@@ -79,7 +79,7 @@ const RecipeFilterPage = () => {
               && 
               recipeData.map(recipe =>
                 <Grid item xs ={3} key={recipe.id}> 
-                  <RecipeCard id={recipe.id} title={recipe.title} image={recipe.image}/> 
+                  <RecipeCard id={recipe.id} title={recipe.title} image={recipe.image} imageType={recipe.imageType}/> 
                 </Grid>
                 )
               }
