@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.App{
+  width: calc(100vw - 0px);
+  /* padding-right: 0px !important; */
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -16,12 +21,10 @@ code {
   margin-bottom: 10px;
 }
 
-.tabs{
-  justify-content: space-evenly;
-}
 
 main {
-  padding: 10px 50px;
+  padding: 10px 25px;
+  max-width: 100%;
 }
 
 .pagination-button {
@@ -30,20 +33,8 @@ main {
   justify-content: center;
 }
 
-.filter-page {
-  display: flex;
-  width: 100%;
+.recipe-grid-item{
+  justify-content: space-evenly;
 }
-
-.form-page {
-  width: 40%;
-}
-.grid-page {
-  width: 60%;
-}
-
-
-
-
 
 

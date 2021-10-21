@@ -1,25 +1,27 @@
-//const session = require('express-session')
 const mongoose = require('mongoose');
-//const Redis = require('ioredis')
-//const connectRedis = require('connect-redis')
-//const {redisOptions} = require('./config/cache')
-const {MONGO_URI, MONGO_OPTIONS} = require('./config/db')
 const {createApp} = require("./app")
 require('dotenv').config();
 
 const port = process.env.PORT || 5000;
 
-//const RedisStore = connectRedis(session)
-//const client = new Redis(redisOptions)
-//const store = new RedisStore({client})
-const app = createApp()
-
-mongoose.connect(MONGO_URI, MONGO_OPTIONS); //should we use await for mongoose.connect and should we wrap server with an IIFE?
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useCreateIndex: true, 
+    useFindAndModify: false
+}); 
 
 mongoose.connection.once('open', () => {
      console.log("Mongodb database connection established successfully")
 })
 
-app.listen(port, ()=>{
+const app = createApp()
+
+const server = app.listen(port, ()=>{
     console.log(`Server is listening on port ${port}`);
+})
+
+process.on("unhandledRejection", (err, promise) => {
+    console.log(`Logged Error: ${err}`)
+    server.close(() => process.exit(1))
 })

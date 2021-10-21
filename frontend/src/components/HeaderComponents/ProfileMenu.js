@@ -10,12 +10,11 @@ import BookmarksIcon from '@mui/icons-material/BookmarksOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useHistory} from "react-router-dom"
 import { UserContext } from "../../contexts/UserContext";
-import axios from 'axios';
 import {useContext, useState} from 'react';
 
 
-const ProfileMenu = ({flag, setFlag}) => {
-    const {userState} = useContext(UserContext)
+const ProfileMenu = () => {
+    const {setUserState} = useContext(UserContext)
     let history = useHistory();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -27,21 +26,11 @@ const ProfileMenu = ({flag, setFlag}) => {
         setAnchorEl(null);
     };
 
-    const logout = () => {    
-        axios.get('auth/log-out', {}, { credentials: 'include'})
-          .then(function (response) {
-            // handle success
-            console.log("logged out")
-            userState.verifiedToken = false;
-            userState.user = null;
-            setFlag(!flag)
-          })
-          .then(history.push('/'))
-          .catch(function (error) {
-            // handle error
-            console.log("logout error:", error);
-          })  
-      }
+    const logout = () => {
+      setUserState({});
+      localStorage.clear();
+      history.push('/')
+    }
 
     return ( 
         <div>
@@ -86,22 +75,22 @@ const ProfileMenu = ({flag, setFlag}) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Link to='/saved-recipes'>  
-          <MenuItem>
-            <ListItemIcon>
-              <BookmarksIcon />
-            </ListItemIcon> 
+        <Link to="/saved-recipes" style={{ textDecoration: 'none', color: 'black' }}>
+        <MenuItem>
+          <ListItemIcon>
+            <BookmarksIcon />
+          </ListItemIcon> 
+          
             <Typography>Saved Recipes</Typography>
-          </MenuItem>
-        </Link>
-        <Link to='/' onClick={logout}>  
-          <MenuItem>
-            <ListItemIcon>
-              <LogoutIcon fontSize="medium" />
-            </ListItemIcon>
-            <Typography> Logout </Typography>
+          
         </MenuItem>
         </Link>
+          <MenuItem onClick={logout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <Typography> Logout </Typography>
+          </MenuItem> 
       </Menu>
         </div>
     );

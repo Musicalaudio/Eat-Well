@@ -4,7 +4,7 @@ const AlreadyAuthorized = ({ component: Component, verifiedToken, ...rest }) => 
     return (
       <Route {...rest} 
         render = {props => {
-            if (verifiedToken) {
+            if (verifiedToken === true) {
                 return <Redirect to={
                     {
                         pathname: '/Unauthorized',

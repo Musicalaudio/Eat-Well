@@ -1,59 +1,50 @@
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect, forwardRef} from 'react';
 import {UserContext} from '../../contexts/UserContext'
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-import Tooltip from '@mui/material/Tooltip';
-import axios from 'axios'
+import AddBookmark from './AddBookmark';
+import RemoveBookmark from './RemoveBookmark';
+import { Snackbar  } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
 
-const Bookmark = ({id, title, image, imageType}) => {
+const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+const Bookmark = ({id, title, image, imageType, recipePage}) => {
     const [bookmarked, setBookmarked] = useState(false)
     const {userState} = useContext(UserContext)
-    const {verifiedToken, user} = userState;
-    const userId = user.user._id;
+    const savedRecipes = userState.savedRecipes;
+    const [open, setOpen] = useState(false);
 
+    const handleToggleSnackbar = (bool) => {
+        setOpen(bool);
+    };
 
-    const addBookmark = () => {
-        axios.post(`http://localhost:5000/recipes/save-recipe`, {userId, id, title, image, imageType})
-        .then(
-            alert('bookmark added'),
-            setBookmarked(!bookmarked)
-        )
-        .catch(function(err){
-            console.log(err)
-        })
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+        return;
     }
+
+        setOpen(false);
+    };
     
-    const removeBookmark = () => {
-        axios.delete(`http://localhost:5000/recipes/unsave-recipe/${userId}/${id}`)
-        .then(
-            alert('bookmark removed'),
-            setBookmarked(!bookmarked)
-        )
-        .catch(function(err){
-            console.log(err)
-        })
-    }
+    useEffect(() => { 
+        for(let i in savedRecipes){
+            if(parseInt(savedRecipes[i].id) === parseInt(id)){
+                setBookmarked(true)
+            }
+        }
+    }, [id, savedRecipes])
 
     return(
         <>
-        {verifiedToken ?
-            <>
-                {bookmarked? 
-                    <Tooltip title="Recipe Saved">
-                    <BookmarkAddedIcon onClick={removeBookmark} />     
-                    </Tooltip>
-                :   <Tooltip title="Save Recipe">
-                    <BookmarkAddIcon  onClick={addBookmark} />     
-                    </Tooltip>
-                }
-            </>
-        :
-            <> 
-                <Tooltip title="Save Recipe">
-                <BookmarkAddIcon  onClick={() => alert("You have to be signed in to bookmark a recipe to your account")} />     
-                </Tooltip>
-            </>
-        }
+            {bookmarked? <RemoveBookmark id={id}  handleClick={handleToggleSnackbar} bookmarked={bookmarked} setBookmarked={setBookmarked} recipePage={recipePage}/> : 
+                         <AddBookmark id={id} handleClick={handleToggleSnackbar} title={title} image={image} imageType={imageType} bookmarked={bookmarked} setBookmarked={setBookmarked} recipePage={recipePage}/>   
+            }
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    Recipe saved
+                </Alert>
+            </Snackbar>
         </>
     )
 }

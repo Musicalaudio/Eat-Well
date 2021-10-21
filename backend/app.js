@@ -1,29 +1,34 @@
 const express = require('express')
-const session = require('express-session')
-const {sessionOptions} = require('./config/session')
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
-const authRoute = require('./routes/auth')
-const verifyAuth = require('./routes/verify')
-const recipes = require('./routes/recipes')
+const newAuth = require('./routes/newAuth')
+const private = require('./routes/private')
+const recipes = require('./routes/recipes') 
 const morgan = require('morgan')
-
+const errorHandler = require('./middleware/error')
+const path = require('path')
 
 const corsOptions = {
     origin: true, //included origin as true
     credentials: true, //included credentials as true
 };
 
-const createApp = (/*store*/) => {
+const createApp = () => {
     const app = express();
-
-    // app.use(
-    //     session({
-    //         ...sessionOptions, 
-    //         store
-    //     })
-    // )
     
+    if(process.env.NODE_ENV === 'production'){
+        console.log('hi')
+        app.use(express.static('../frontend/build'));
+        app.get("*", (req, res) => {
+            res.sendFile('C:/Users/Jordan/Desktop/Eat-Well/frontend/build/index.html')
+        })
+    }
+    // else{
+    //     app.get('/', (req, res) => {
+    //         res.send("API running")
+    //     })
+    // }
+
     app.use(cors(corsOptions));
 
     app.use(function(req, res, next) {
@@ -40,9 +45,10 @@ const createApp = (/*store*/) => {
     app.use(cookieParser());
     app.use(morgan('dev'));
 
-    app.use('/auth', authRoute)
-    app.use('/verify', verifyAuth)
+    app.use('/newAuth', newAuth)
+    app.use('/private', private)
     app.use('/recipes', recipes)
+    app.use(errorHandler)
 
     return app
 }
