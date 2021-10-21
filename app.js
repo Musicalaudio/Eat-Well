@@ -17,7 +17,7 @@ const createApp = () => {
     const app = express();
     
     if(process.env.NODE_ENV === 'production'){
-        app.use(express.static(path.join('./client/build')));
+        app.use(express.static('./client/build'));
         app.get("*", (req, res) => {
             res.sendFile('C:/Users/Jordan/Desktop/Eat-Well/client/build/index.html')
         })
