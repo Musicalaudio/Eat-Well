@@ -14,7 +14,7 @@ import {useContext, useState} from 'react';
 
 
 const ProfileMenu = () => {
-    const {setUserState} = useContext(UserContext)
+    const {userState, setUserState} = useContext(UserContext)
     let history = useHistory();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -37,7 +37,11 @@ const ProfileMenu = () => {
             <Box>
                 <Tooltip title="Profile Options">
                 <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-                <Avatar sx={{ width: 32, height: 32 }}/>
+                {Object.keys(userState).length !== 0 ?
+                  <Avatar sx={{ width: 36, height: 36 }}>{userState.username[0]}</Avatar>
+                  :
+                  <Avatar sx={{ width: 36, height: 36 }}/>
+                }
                 </IconButton>
                 </Tooltip>
             </Box>
