@@ -1,6 +1,8 @@
 import { Typography } from "@mui/material";
 import {makeStyles } from "@material-ui/core";
 import salad from "../images/salad.jpg"
+import { UserContext } from "../contexts/UserContext";
+import {useContext} from "react";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -55,12 +57,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Home = () => {
+  const {userState} = useContext(UserContext)
   const classes = useStyles()
   return (
     <div className={classes.container}>
       <div className={classes.homeText}>
         <div className={classes.description}>
-          <Typography className={classes.title} variant='h4' gutterBottom>Welcome to Eat-Well</Typography>
+            {Object.keys(userState).length !== 0 ?  
+            <Typography className={classes.title} variant='h4' gutterBottom>Welcome, {userState.username}</Typography>
+            : 
+            <Typography className={classes.title} variant='h4' gutterBottom>Welcome to Eat-Well</Typography>
+            }
           <Typography className={classes.paragraph} fontSize={17}>
             Eat-Well is a project created by Jordan D'Souza which uses the <a href='https://spoonacular.com/food-api'>Spoonacular API</a> to 
             allow users to search and filter through recipes, and save them to their account. This website uses ReactJS on the frontend and NodeJS on the backend, as well as MongoDB for 
