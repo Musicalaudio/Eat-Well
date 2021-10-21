@@ -65,7 +65,7 @@ const Login = () => {
             withCredentials: true,
             headers: {'Content-Type' : 'application/json'}
         }
-        axios.post('http://localhost:5000/newAuth/login', axiosData, axiosConfig)
+        axios.post('/newAuth/login', axiosData, axiosConfig)
         .then(function (response){
             localStorage.setItem("authToken", response.data.token)
             localStorage.setItem("user", JSON.stringify(response.data.user))

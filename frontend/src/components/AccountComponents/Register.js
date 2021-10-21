@@ -77,7 +77,7 @@ const Register = () => {
             headers: {'Content-Type' : 'application/json'}
         }
 
-        axios.post('http://localhost:5000/newAuth/register', axiosData, axiosConfig)
+        axios.post('/newAuth/register', axiosData, axiosConfig)
         .then(function (response){
             localStorage.setItem("authToken", response.data.token)
             localStorage.setItem("user", JSON.stringify(response.data.user))
@@ -97,7 +97,6 @@ const Register = () => {
 
 
     return (
-        <div className={classes.container}>    
             <div className={classes.register}>  
                 <form onSubmit={handleSubmit(handleRegister)}>
                     <div className={classes.title}>
@@ -134,7 +133,6 @@ const Register = () => {
                     <Typography>Already have an account? <Link to="log-in">Login</Link> </Typography>
                 </form>
             </div>
-        </div>
     );
 }
  
