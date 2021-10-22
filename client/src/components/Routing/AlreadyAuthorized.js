@@ -1,24 +1,19 @@
-import { Route, Redirect } from 'react-router-dom';
+import {Redirect, Route} from "react-router-dom"
 
-const AlreadyAuthorized = ({ component: Component, verifiedToken, ...rest }) => {
+
+const AlreadyAuthorized = ({component: Component, ...rest}) => {
     return (
-      <Route {...rest} 
-        render = {props => {
-            if (verifiedToken === true) {
-                return <Redirect to={
-                    {
-                        pathname: '/Unauthorized',
-                        state: {
-                        from: props.location
-                    }
-                }
-            } />
-            } else {
-                return <Component {...rest} {...props} />
-        }
-    }
-} />
-)
+        <Route
+            {...rest}
+            render = {(props) => 
+                localStorage.getItem("authToken") ? (
+                    <Redirect to="/"/>
+                ) : (
+                    <Component {...props}/>
+                )
+            }
+        />
+    )
 }
 
 export default AlreadyAuthorized;
