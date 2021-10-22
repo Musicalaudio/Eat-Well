@@ -10,11 +10,22 @@ import { Breadcrumbs, Link } from "@mui/material";
 import Bookmark from "./Bookmark";
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        paddingTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        paddingBottom: theme.spacing(3),
+    },
     recipeContainer: {
         [theme.breakpoints.up("md")]: {
             display: "flex",
             width: "100%",
             justifyContent: "space-evenly",
+        },
+    },
+    actualImage: {
+        [theme.breakpoints.down("sm")]: {
+            width: "85%",
         },
     },
     recipeImage: {
@@ -157,21 +168,21 @@ const RecipeInstructions = ({response, ...props}) => {
 
   
     return ( 
-        <>
+        <div className={classes.container}>
             {recipeData ? 
             <div>
                 <div className={classes.topNav}>
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link underline="hover" color="inherit" href="/">
-                            Home
+                            <u>Home</u>
                         </Link>
                         {prevPath &&  prevPath.toString().substr(prevPath.lastIndexOf("/"),  prevPath.toString().length - prevPath.lastIndexOf("/")) !== "/filter"? 
                         <Link underline="hover" color="inherit" href={`${prevPath}`} >
-                            {prevString.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g," ").trim().replace(/(?:^|\s)\S/g, a => a.toUpperCase())} 
+                            <u>{prevString.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g," ").trim().replace(/(?:^|\s)\S/g, a => a.toUpperCase())}</u>
                         </Link>
                         :
                         <Link underline="hover" color="inherit" href="/1/filter?">
-                            Filter
+                            <u>Filter</u>
                         </Link>
                         }
                         <Typography color="text.primary">{recipeData.title}</Typography>
@@ -196,11 +207,11 @@ const RecipeInstructions = ({response, ...props}) => {
                 </div>
                 <div className={classes.recipeContainer}>  
                     <div className={classes.recipeImage}>    
-                        <img src={`https://spoonacular.com/recipeImages/${id}-556x370.jpg`} alt="RecipeImage"/>
+                        <img src={`https://spoonacular.com/recipeImages/${id}-556x370.jpg`} alt="RecipeImage" className={classes.actualImage}/>
                     </div>  
                    
                     <div className={classes.ingredients}>
-                        <Typography variant='h6' component='h6'>Ingredients:</Typography>
+                        <Typography variant='h6' component='h6' gutterBottom>Ingredients:</Typography>
                         {ingredients.length > 0 ?
                                                 ingredients.map((item, index) => (
                                                     <Typography key={index} > 
@@ -212,7 +223,7 @@ const RecipeInstructions = ({response, ...props}) => {
                     </div>
                 </div>
                 <div className={classes.instructions}>
-                    <Typography className={classes.instructionsTitle} variant='h6' component='h6' gutterBottom>Instructions:</Typography>
+                    <Typography className={classes.instructionsTitle} variant='h6' component='h6' gutterBottom><u>Instructions:</u></Typography>
                     {recipeData.analyzedInstructions.length !== 0 ? 
                         recipeData.analyzedInstructions[0].steps.map(instruction => 
                             <div key={instruction.step}>
@@ -233,7 +244,7 @@ const RecipeInstructions = ({response, ...props}) => {
                 {noData? <NoRecipe/> : isPending && <Typography>Loading...</Typography>}
             </div>
             }
-        </>
+        </div>
     );
 }
  
