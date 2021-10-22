@@ -6,7 +6,7 @@ const private = require('./routes/private')
 const recipes = require('./routes/recipes') 
 const morgan = require('morgan')
 const errorHandler = require('./middleware/error')
-
+const path = require('path')
 
 const corsOptions = {
     origin: true, //included origin as true
@@ -17,9 +17,9 @@ const createApp = () => {
     const app = express();
     
     if(process.env.NODE_ENV === 'production'){
-        app.use(express.static('./client/build'));
+        app.use(express.static(path.join(__dirname, '/client/build')));
         app.get("*", (req, res) => {
-            res.sendFile('C:/Users/Jordan/Desktop/Eat-Well/client/build/index.html')
+            res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
         })
     }
     // else{
