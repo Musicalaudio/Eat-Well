@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     [theme.breakpoints.down('sm')]: {
       display: "block",
-      paddingLeft: theme.spacing(4),
-      paddingRight: theme.spacing(4)
+      paddingLeft: theme.spacing(0),
+      paddingRight: theme.spacing(0),
+      paddingTop: theme.spacing(1),
     },
   },
   homeText: {
@@ -33,6 +34,18 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     textAlign: "center"
   },
+  titleLarge: {
+    display: "block",
+    [theme.breakpoints.down('sm')]: {
+      display: "none"
+    },
+  },
+  titleSmall: {
+    display: "none",
+    [theme.breakpoints.down('sm')]: {
+      display: "block"
+    },
+  },
   image: {
     width: "50%",
     borderRadius: "8px",
@@ -44,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paragraph: {
-    textAlign: "justify"
+    textAlign: "justify",
+    [theme.breakpoints.down('sm')]: {
+      textAlign: "left",
+    }
   },
   imageText: {
     [theme.breakpoints.up("lg")]: {
@@ -66,7 +82,10 @@ const Home = () => {
             {Object.keys(userState).length !== 0 ?  
             <Typography className={classes.title} variant='h4' gutterBottom>Welcome, {userState.username}</Typography>
             : 
-            <Typography className={classes.title} variant='h4' gutterBottom>Welcome to Eat-Well</Typography>
+            <>
+            <Typography className={`${classes.title} ${classes.titleLarge}`} variant='h4' gutterBottom>Welcome to Eat-Well</Typography>
+            <Typography className={`${classes.title} ${classes.titleSmall}`} variant='h5' gutterBottom>Welcome to Eat-Well</Typography>
+            </>
             }
           <Typography className={classes.paragraph} fontSize={17}>
             Eat-Well is a project created by Jordan D'Souza which uses the <a href='https://spoonacular.com/food-api'>Spoonacular API</a> to 
