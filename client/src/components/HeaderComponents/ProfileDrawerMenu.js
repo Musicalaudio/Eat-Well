@@ -13,7 +13,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from "../../contexts/UserContext";
 import { useHistory } from 'react-router';
 
-const ProfileDrawerMenu = () => {
+const ProfileDrawerMenu = ({getRandomRecipe}) => {
     const {setUserState} = useContext(UserContext)
     const history = useHistory()
     const [anchorEl, setAnchorEl] = useState(null);
@@ -74,7 +74,7 @@ const ProfileDrawerMenu = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem >
+                <MenuItem onClick={getRandomRecipe}>
                   <ListItemIcon>
                     <ShuffleIcon />
                   </ListItemIcon>
