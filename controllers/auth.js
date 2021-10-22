@@ -19,7 +19,12 @@ exports.register = async(req, res, next) => {
         const verifieduser = await User.findOne({email}).select("-password").select("-email")
         sendToken(verifieduser, 201, res)    
 
-        const confirmUrl = `http://localhost:3000/confirm-email/${confirmationToken}`;
+        if(process.env.NODE_ENV === 'production'){
+            const confirmUrl = `https://eat-well5.herokuapp.com/confirm-email/${confirmationToken}`;
+        }else{
+            const confirmUrl = `http://localhost:3000/confirm-email/${confirmationToken}`;
+        }
+        
         const message = `
             <h1>This email is to confirm your account with Eat-Well</h1>
             <p>Please go to this link to confirm that you created an account with this email</p>
@@ -91,7 +96,12 @@ exports.forgotpassword =  async (req, res, next) => {
         await user.save();
 
         // Create reset url to email to provided email
-        const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+        // const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+        if(process.env.NODE_ENV === 'production'){
+            const confirmUrl = `https://eat-well5.herokuapp.com/reset-password/${resetToken}`;
+        }else{
+            const confirmUrl = `http://localhost:3000/reset-password/${resetToken}`;
+        }
         
         // HTML Message
         const message = `
@@ -189,7 +199,13 @@ exports.resendEmail = async (req, res, next) => {
 
 const sendConfirmationEmail = async (user, res, next) => {
     const confirmationToken = user.getConfirmationToken();
-    const confirmUrl = `http://localhost:3000/confirm-email/${confirmationToken}`;
+    // const confirmUrl = `http://localhost:3000/confirm-email/${confirmationToken}`;
+    if(process.env.NODE_ENV === 'production'){
+        const confirmUrl = `https://eat-well5.herokuapp.com/confirm-email/${confirmationToken}`;
+    }else{
+        const confirmUrl = `http://localhost:3000/confirm-email/${confirmationToken}`;
+    }
+
     const message = `
         <h1>This email is to confirm your account with Eat-Well</h1>
         <p>Please go to this link to confirm that you created an account with this email</p>
