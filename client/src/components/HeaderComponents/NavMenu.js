@@ -18,8 +18,12 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(12),
     paddingRight: theme.spacing(12),
     [theme.breakpoints.down("sm")]: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5)
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3)
+    },
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
     }
   },
   logo:{
@@ -62,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     paddingLeft: theme.spacing(1),
     [theme.breakpoints.down("xs")]: {
-      width: "80%"
+      width: "100%"
     }
   },
   utilButtons: {
@@ -98,7 +102,7 @@ const NavMenu = () => {
       history.push(`/search/${searchValue}`)
     }
   }
-  // console.log(process.env.REACT_APP_SPOONACULAR_KEY)
+  
   const getRandomRecipe = async () => {
     setRandom(undefined)
     axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_SPOONACULAR_KEY}&number=1`)
@@ -150,7 +154,7 @@ const NavMenu = () => {
                   <ProfileMenu />
                 </Box>
                 <Box className={classes.menuButton}>
-                    <ProfileDrawerMenu/>
+                    <ProfileDrawerMenu getRandomRecipe={getRandomRecipe}/>
                 </Box>
               </>
             :
@@ -162,7 +166,7 @@ const NavMenu = () => {
                   <Button className={classes.utilButtons} style={{ color: '#FFF' }}>Register</Button>
                 </Link>
                 <Box className={classes.menuButton}>
-                  <DrawerMenu/>
+                  <DrawerMenu getRandomRecipe={getRandomRecipe}/>
                 </Box>
               </div>
             }

@@ -11,8 +11,9 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from "react";
 import {useHistory} from "react-router-dom"
+import axios from 'axios';
 
-const DrawerMenu = () => {
+const DrawerMenu = ({getRandomRecipe}) => {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -67,14 +68,14 @@ const DrawerMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <MenuItem onClick={getRandomRecipe}>
           <ListItemIcon>
             <ShuffleIcon />
           </ListItemIcon>
           Random Recipe
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon onClick={() => history.push('/1/filter?')}>
+        <MenuItem onClick={() => history.push('/1/filter?')}>
+          <ListItemIcon>
             <FilterListIcon />
           </ListItemIcon>
           Filter
