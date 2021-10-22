@@ -19,6 +19,7 @@ import RecipeInstructions from "./components/RecipeSearch/RecipeInstructions";
 import SearchResults from "./components/RecipeSearch/SearchResults";
 import SavedRecipes from "./components/HeaderComponents/SavedRecipes";
 import { responsiveFontSizes } from "@material-ui/core";
+import PageNotFound from "./components/Routing/PageNotFound"
 
 function App() {
   const {setUserState} = useContext(UserContext);
@@ -38,9 +39,9 @@ function App() {
         <BrowserRouter>
           <div className="App">
             <header>
-              <NavMenu />
+              <NavMenu/>
             </header>
-            <main className='container'>
+            <main>
               <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/recipe-instructions/:title/:id" component={RecipeInstructions}/>
@@ -49,14 +50,14 @@ function App() {
                 <Route exact path="/forgot-password" component={ForgotPasswordScreen}/>
                 <Route exact path="/confirm-email/:confirmationToken" component={EmailConfirmed}/>
                 <Route exact path="/reset-password/:resetToken" component={ResetPasswordScreen}/>
-                {/* <ProtectedRoute exact path="/saved-recipes" verifiedToken={userState.verifiedToken} component={SavedRecipes}/> */}
                 <PrivateRoute exact path="/saved-recipes" component={SavedRecipes}/>
                 <PrivateRoute exact path="/private-screen" component={PrivateScreen}/>
-                {/* <AlreadyAuthorized exact path="/sign-in" verifiedToken={userState.verifiedToken} flag={flag} setFlag={setFlag} component={SignIn}/> */}
+                <AlreadyAuthorized exact path="/log-in" component={Login}/>
+                <AlreadyAuthorized exact path="/register" component={Register}/>
                 <Route exact path="/log-in" component={Login}/>
-                {/* <AlreadyAuthorized exact path="/sign-up" verifiedToken={userState.verifiedToken} component={SignUp}/> */}
                 <Route exact path="/register" component={Register}/>
                 <Route exact path="/unauthorized" component={Unauthorized}/>
+                <Route path="*" component={PageNotFound}/>
               </Switch>
             </main> 
           </div>
