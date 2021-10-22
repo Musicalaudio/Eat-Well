@@ -7,34 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.App{
-  width: calc(100vw - 0px);
-  /* padding-right: 0px !important; */
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.app-bar{
-  margin-bottom: 10px;
-}
-
-
-main {
-  padding: 10px 25px;
-  max-width: 100%;
-}
-
-.pagination-button {
-  padding: 30px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.recipe-grid-item{
-  justify-content: space-evenly;
-}
+ 
 
 
