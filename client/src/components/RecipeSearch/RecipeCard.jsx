@@ -36,7 +36,7 @@ const RecipeCard = ({id, title, image, imageType}) => {
         />
         <CardContent>
             <Tooltip title={title}>
-              <Typography gutterBottom component="h2" variant="h6" noWrap>
+              <Typography gutterBottom /*component="h2"*/ variant="subtitle2" noWrap>
                 {title}
               </Typography>
             </Tooltip>

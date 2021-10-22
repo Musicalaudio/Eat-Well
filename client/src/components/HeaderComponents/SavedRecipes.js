@@ -3,24 +3,21 @@ import { useContext, useState, useRef } from 'react';
 import RecipeCard from '../RecipeSearch/RecipeCard'
 import { Grid, Box, makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles({
-    pokedexContainer: {
-      paddingTop: "20px",
-      paddingLeft: "50px",
-      paddingRight: "50px",
+const useStyles = makeStyles((theme) => ({
+    recipeContianer: {
+        paddingLeft: theme.spacing(4)
+        
     },
-    recipeGridItem: {
-        justifyContent: 'space-evenly'
-    }
-})
+
+}))
 
 const SavedRecipes = () => {
     const {userState} = useContext(UserContext)
     const classes = useStyles()
     return ( 
-        <Box>   
+        <Box className={classes.recipeContianer}>   
             <h2>Saved Recipes:</h2>
-            <Grid container spacing={3} className={classes.useStyles} >
+            <Grid container spacing={2} >
             {userState.hasOwnProperty('savedRecipes') ?
                 userState.savedRecipes.map(recipe =>
                     <Grid item lg={3} md={4} sm={6} xs={12} key={recipe.id} className={classes.recipeGridItem}>  

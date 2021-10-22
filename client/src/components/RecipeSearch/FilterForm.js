@@ -191,11 +191,11 @@ const FilterForm = ({setQueryParams, page, fetchVariables, fetchHooks, queryErro
                             )}
                         </Select>
                     </Grid>
-                    <Grid item lg={3} md={4} sm={4} xs={6}>
+                    <Grid item lg={4} md={4} sm={4} xs={6}>
                         <InputLabel color="primary">Min Calories</InputLabel>
                         <TextField type="number" value={formState['minCalories']} onChange={e => handleChange('minCalories', e.target.value)}/>
                     </Grid>
-                    <Grid item lg={3} md={4} sm={4} xs={6}>
+                    <Grid item lg={4} md={4} sm={4} xs={6}>
                         <InputLabel color="primary">Max Calories</InputLabel>
                         <TextField type="number" value={formState['maxCalories']} onChange={e => handleChange('maxCalories', e.target.value)}/>
                     </Grid>
