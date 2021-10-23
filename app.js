@@ -7,6 +7,7 @@ const recipes = require('./routes/recipes')
 const morgan = require('morgan')
 const errorHandler = require('./middleware/error')
 const path = require('path')
+require('dotenv').config();
 
 const corsOptions = {
     origin: true, //included origin as true

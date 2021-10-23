@@ -10,7 +10,6 @@ import LoginDialog from './LoginDialog';
 const AddBookmark = ({id, title, image, imageType, bookmarked, setBookmarked, handleToggleSnackbar}) => {
     const {userState, setUserState} = useContext(UserContext)
     const userId = userState._id;
-
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -37,7 +36,7 @@ const AddBookmark = ({id, title, image, imageType, bookmarked, setBookmarked, ha
     
     return ( 
         <>
-            {Object.keys(userState) !== 0 ?
+            {Object.keys(userState).length !== 0 ?
                 <>
                     <Tooltip title="Save Recipe">
                     <BookmarkAddIcon onClick={addBookmark} />  

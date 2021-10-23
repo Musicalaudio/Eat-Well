@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const {isEmail} =  require('validator')
 const crypto = require('crypto');
-const uniqueValidator = require('mongoose-unique-validator');
 require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
@@ -14,7 +13,6 @@ const userSchema = new mongoose.Schema({
         maxlength: [12, "Password must be no longer than 12 characters"],
         unique: true,
         trim: true,
-        uniqueCaseInsensitive: true
     },
     email: {
         type: String,
@@ -36,16 +34,14 @@ const userSchema = new mongoose.Schema({
     isVerified: Boolean,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-    savedRecipes: [{_id: {type: String, /*required: true*/},
-                    id: {type: String, /*required: true*/},
-                    title: {type: String, /*required: true*/},
-                    image: {type: String, /*required: true*/},
-                    imageType: {type: String, /*required: true*/},}
+    savedRecipes: [{_id: {type: String, required: true},
+                    id: {type: String, required: true},
+                    title: {type: String, required: true},
+                    image: {type: String, required: true},
+                    imageType: {type: String, required: true},}
                   ]
 })
 
-// Apply the uniqueValidator plugin to userSchema.
-userSchema.plugin(uniqueValidator);
 
 //encrypting the password with hashing and salt
 userSchema.pre('save', async function(next){

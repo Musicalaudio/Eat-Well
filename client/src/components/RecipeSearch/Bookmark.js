@@ -37,8 +37,8 @@ const Bookmark = ({id, title, image, imageType, recipePage}) => {
 
     return(
         <>
-            {bookmarked? <RemoveBookmark id={id}  handleClick={handleToggleSnackbar} bookmarked={bookmarked} setBookmarked={setBookmarked} recipePage={recipePage}/> : 
-                         <AddBookmark id={id} handleClick={handleToggleSnackbar} title={title} image={image} imageType={imageType} bookmarked={bookmarked} setBookmarked={setBookmarked} recipePage={recipePage}/>   
+            {bookmarked? <RemoveBookmark id={id}  handleToggleSnackbar ={handleToggleSnackbar} bookmarked={bookmarked} setBookmarked={setBookmarked} recipePage={recipePage}/> : 
+                         <AddBookmark id={id} handleToggleSnackbar ={handleToggleSnackbar} title={title} image={image} imageType={imageType} bookmarked={bookmarked} setBookmarked={setBookmarked} recipePage={recipePage}/>   
             }
             <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
