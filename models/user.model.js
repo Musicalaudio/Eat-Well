@@ -34,12 +34,11 @@ const userSchema = new mongoose.Schema({
     isVerified: Boolean,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-    savedRecipes: [{_id: {type: String, required: true},
-                    id: {type: String, required: true},
-                    title: {type: String, required: true},
-                    image: {type: String, required: true},
-                    imageType: {type: String, required: true},}
-                  ]
+    savedRecipes: [{_id: {type: String, /*required: true*/},
+                    id: {type: String, /*required: true*/},
+                    title: {type: String, /*required: true*/},
+                    image: {type: String, /*required: true*/},
+                    imageType: {type: String, /*required: true*/},}]
 })
 
 
