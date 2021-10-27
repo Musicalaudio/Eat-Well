@@ -63,9 +63,12 @@ userSchema.methods.matchPasswords = async function(password){
 
 
 userSchema.methods.getSignedToken = function(){
-    const maxAge = 60 * 60 * 24 * 3;
-    return jwt.sign({ id: this._id }, process.env.SECRET, {expiresIn: maxAge})
+    return jwt.sign({ id: this._id }, process.env.JWT_ACCESS_SECRET, {expiresIn: process.env.JWT_EXPIRE})
 }
+
+// userSchema.methods.getRefreshToken = function(){
+//     return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_SECRET)
+// }
 
 userSchema.methods.getResetPasswordToken = function(){
     const resetToken = crypto.randomBytes(20).toString("hex")
