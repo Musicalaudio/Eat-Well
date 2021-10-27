@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     [theme.breakpoints.down('sm')]: {
       display: "block",
-      paddingLeft: theme.spacing(0),
-      paddingRight: theme.spacing(0),
-      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(),
+      paddingRight: theme.spacing(),
+      paddingTop: theme.spacing(2),
     },
   },
   homeText: {
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   paragraph: {
     textAlign: "justify",
     [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(1),
       textAlign: "left",
     }
   },
