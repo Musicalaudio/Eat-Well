@@ -5,8 +5,8 @@ import { Grid, Box, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     recipeContianer: {
-        paddingLeft: theme.spacing(4)
-        
+        paddingLeft: theme.spacing(4),
+        paddingTop: theme.spacing(0)
     },
 
 }))

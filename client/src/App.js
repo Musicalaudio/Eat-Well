@@ -18,12 +18,18 @@ import {UserContext} from "./contexts/UserContext"
 import RecipeInstructions from "./components/RecipeSearch/RecipeInstructions";
 import SearchResults from "./components/RecipeSearch/SearchResults";
 import SavedRecipes from "./components/HeaderComponents/SavedRecipes";
-import { responsiveFontSizes } from "@material-ui/core";
+import { responsiveFontSizes, makeStyles } from "@material-ui/core";
 import PageNotFound from "./components/Routing/PageNotFound"
+
+const useStyles = makeStyles((theme) => ({
+  main: {
+    padding: theme.spacing(2)
+  }
+}))
 
 function App() {
   const {setUserState} = useContext(UserContext);
-  
+  const classes = useStyles()
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -41,7 +47,7 @@ function App() {
             <header>
               <NavMenu/>
             </header>
-            <main>
+            <main className={classes.main}>
               <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/recipe-instructions/:title/:id" component={RecipeInstructions}/>
