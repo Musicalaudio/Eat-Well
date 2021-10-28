@@ -22,6 +22,9 @@ import { responsiveFontSizes, makeStyles } from "@material-ui/core";
 import PageNotFound from "./components/Routing/PageNotFound"
 
 const useStyles = makeStyles((theme) => ({
+  app:{
+    width: "calc(100vw - 1px)",
+  },
   main: {
     padding: theme.spacing(2)
   }
@@ -43,7 +46,7 @@ function App() {
   return (
       <ThemeProvider theme={responsiveTheme}>
         <BrowserRouter>
-          <div className="App">
+          <div className={classes.app}>
             <header>
               <NavMenu/>
             </header>

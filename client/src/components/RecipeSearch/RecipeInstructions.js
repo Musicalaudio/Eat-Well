@@ -11,10 +11,9 @@ import Bookmark from "./Bookmark";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        paddingTop: theme.spacing(1),
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
-        paddingBottom: theme.spacing(3),
+        paddingBottom: theme.spacing(2),
     },
     recipeContainer: {
         [theme.breakpoints.up("md")]: {
