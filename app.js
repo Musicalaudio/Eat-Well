@@ -6,7 +6,7 @@ const private = require("./routes/private");
 const recipes = require("./routes/recipes");
 const morgan = require("morgan");
 const errorHandler = require("./middleware/error");
-const path = require("path");
+const { resolve } = require("path");
 require("dotenv").config();
 
 const corsOptions = {
