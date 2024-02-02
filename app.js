@@ -6,7 +6,7 @@ const private = require("./routes/private");
 const recipes = require("./routes/recipes");
 const morgan = require("morgan");
 const errorHandler = require("./middleware/error");
-const { resolve } = require("path");
+const path = require("path");
 require("dotenv").config();
 
 const corsOptions = {
@@ -18,9 +18,13 @@ const createApp = () => {
   const app = express();
 
   if (process.env.NODE_ENV === "production") {
-    app.use("/", express.static("build"));
-    console.log("THIS WORKS");
-    app.get("*", (req, res) => res.sendFile(resolve("build", "index.html")));
+    app.use(express.static(path.join(__dirname, "/client/build")));
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    });
+    console.log(
+      path.join(__dirname, "client", "build", "index.html").toString()
+    );
   }
 
   app.use(cors(corsOptions));
