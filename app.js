@@ -19,6 +19,7 @@ const createApp = () => {
 
   if (process.env.NODE_ENV === "production") {
     app.use("/", express.static("build"));
+    console.log("THIS WORKS");
   }
 
   app.use(cors(corsOptions));
