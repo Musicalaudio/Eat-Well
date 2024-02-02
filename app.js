@@ -18,13 +18,8 @@ const createApp = () => {
   const app = express();
 
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static("build"));
+    app.use("/", express.static("dist"));
   }
-  // else{
-  //     app.get('/', (req, res) => {
-  //         res.send("API running")
-  //     })
-  // }
 
   app.use(cors(corsOptions));
 
